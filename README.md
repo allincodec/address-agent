@@ -79,6 +79,13 @@ docker run -d \
   pgvector/pgvector:pg16
 ```
 ```Address Registry Table
+create type address_type as enum ('PORT', 'AIRPORT', 'RAIL', 'UNKNOWN');
+
+alter type address_type owner to postgres;
+
+CREATE EXTENSION IF NOT EXISTS vector;
+CREATE INDEX ON address_registry USING ivfflat (embedding vector_cosine_ops);
+alter type public.vector owner to postgres;
 
 create table address_registry
 (
@@ -91,15 +98,15 @@ create table address_registry
     city                 varchar(100)                                       not null,
     district             varchar(100),
     state                varchar(100),
+    country_code         varchar(3),
     country_name         varchar(100),
     postal               varchar(20),
     latitude             numeric(10, 7),
     longitude            numeric(10, 7),
-    location_point       geometry(Point, 4326),
     timezone             varchar(50),
     geofence_radius      integer,
     geofence_points      jsonb,
-    address_type         address_type,                                     not null,
+    address_type         address_type not null,
     embedding            vector(384)
 );
 
