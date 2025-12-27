@@ -1,0 +1,16 @@
+[project]
+name = "address-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pgvector>=0.4.2",
+    "psycopg>=3.3.2",
+    "psycopg-binary>=3.3.2",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.1",
+    "sentence-transformers>=5.2.0",
+    "smolagents>=1.23.0",
+    "sqlalchemy>=2.0.45",
+]
